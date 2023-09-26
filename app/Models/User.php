@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserTypesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cpf',
+        'type_id'
     ];
 
     /**
@@ -41,5 +45,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'type_id' => UserTypesEnum::class
     ];
+
+    protected $appends = ['type'];
+
+    public function getTypeAttribute(): string
+    {
+        return $this->type_id->getName();
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class)->orderByDesc('id');
+    }
 }
