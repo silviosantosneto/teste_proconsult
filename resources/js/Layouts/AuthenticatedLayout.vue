@@ -107,15 +107,15 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div
-                    :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-                    class="sm:hidden"
-                >
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
+<!--                <div-->
+<!--                    :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"-->
+<!--                    class="sm:hidden"-->
+<!--                >-->
+<!--                    <div class="pt-2 pb-3 space-y-1">-->
+<!--                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
+<!--                            Dashboard-->
+<!--                        </ResponsiveNavLink>-->
+<!--                    </div>-->
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
