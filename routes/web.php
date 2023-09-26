@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,11 +26,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [TicketController::class, 'list'])->name('dashboard');
+    Route::prefix('ticket')->group( function (){
+        Route::get('show/{id}', [TicketController::class, 'show'])->name('ticket.show');
+        Route::get('end/{id}', [TicketController::class, 'end'])->name('ticket.end');
+        Route::get('create', [TicketController::class, 'create'])->name('ticket.create');
+        Route::post('create-store', [TicketController::class, 'createStore'])->name('ticket.create-store');
+        Route::post('reply-store', [TicketController::class, 'replyStore'])->name('ticket.reply-store');
+    });
 
-Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
