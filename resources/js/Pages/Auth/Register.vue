@@ -9,6 +9,8 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     email: '',
+    cpf: '',
+    type_id: '',
     password: '',
     password_confirmation: '',
 });
@@ -54,6 +56,39 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+
+            <div class="mt-4">
+                <InputLabel for="cpf" value="CPF" />
+
+                <TextInput
+                    id="cfp"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.cpf"
+                    required
+                    autocomplete="cpf"
+                />
+
+                <InputError class="mt-2" :message="form.errors.cpf" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="type_id" value="Type" />
+
+                <select
+                    name="type_id"
+                    id="type_id"
+                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                    v-model="form.type_id"
+                    required
+                >
+                    <option class="" value="1">Colaborador</option>
+                    <option class="mt-1 block w-full" value="2">Cliente</option>
+                </select>
+
+                <InputError class="mt-2" :message="form.errors.type_id" />
             </div>
 
             <div class="mt-4">

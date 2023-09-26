@@ -19,6 +19,8 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    cpf: user.cpf,
+    type_id: user.type_id
 });
 </script>
 
@@ -62,6 +64,38 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div>
+                <InputLabel for="cpf" value="CPF" />
+
+                <TextInput
+                    id="cpf"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.cpf"
+                    required
+                    autocomplete="cpf"
+                />
+
+                <InputError class="mt-2" :message="form.errors.cpf" />
+            </div>
+
+            <div>
+                <InputLabel for="type" value="Type" />
+
+                <select disabled
+                        name="type"
+                        id="type"
+                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                        v-model="form.type_id"
+                        required
+                >
+                    <option value="1">Colaborador</option>
+                    <option value="2">Cliente</option>
+                </select>
+
+                <InputError class="mt-2" :message="form.errors.type" />
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
