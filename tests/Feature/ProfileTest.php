@@ -1,6 +1,8 @@
 <?php
 
+use App\Enums\UserTypesEnum;
 use App\Models\User;
+use Faker\Factory;
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
@@ -14,12 +16,15 @@ test('profile page is displayed', function () {
 
 test('profile information can be updated', function () {
     $user = User::factory()->create();
+    $faker = Factory::create('pt_BR');
 
     $response = $this
         ->actingAs($user)
         ->patch('/profile', [
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'type_id' => fake()->randomElement([UserTypesEnum::COLLABORATOR->value, UserTypesEnum::CLIENT->value]),
+            'cpf' => $faker->cpf(false)
         ]);
 
     $response
