@@ -2,17 +2,20 @@
 
 namespace App\Helpers;
 
+use App\Http\Requests\StoreRequest;
+use App\Models\TicketReply;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-class Ticket
+class TicketHelper
 {
 
     /**
-     * @param Request $request
+     * @param StoreRequest $request
      * @param int $id
      * @return array
      */
-    public static function filesStore(Request $request, int $id): array
+    public static function storeFiles(StoreRequest $request, int $id): array
     {
         $files = [];
         if ($request->hasFile('files')) {
@@ -31,7 +34,7 @@ class Ticket
      * @param array $files
      * @return array
      */
-    public static function setAttachamentLinks(array $files): array
+    public static function setAttachmentLinks(array $files): array
     {
         $links = [];
         foreach ($files as $key => $file) {
@@ -41,5 +44,20 @@ class Ticket
             ];
         }
         return $links;
+    }
+
+    /**
+     * @param int $id
+     * @return Collection
+     */
+    public static function getTicketReplies(int $id): Collection
+    {
+        $replies = TicketReply::where('ticket_id', $id)->get();
+        foreach ($replies as $reply) {
+            if ($reply->files !== []) {
+                $reply->links = self::setAttachmentLinks($reply->files);
+            }
+        }
+        return $replies;
     }
 }
