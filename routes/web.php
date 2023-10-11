@@ -21,10 +21,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [TicketController::class, 'list'])->name('dashboard');
     Route::prefix('ticket')->group( function (){
         Route::get('show/{id}', [TicketController::class, 'show'])->name('ticket.show');
-        Route::get('end/{id}', [TicketController::class, 'end'])->name('ticket.end');
         Route::get('create', [TicketController::class, 'create'])->name('ticket.create');
-        Route::post('create-store', [TicketController::class, 'createStore'])->name('ticket.create-store');
-        Route::post('reply-store', [TicketController::class, 'replyStore'])->name('ticket.reply-store');
+        Route::post('ticket-store', [TicketController::class, 'ticketStore'])->name('ticket.store');
+        Route::post('reply-store', [TicketController::class, 'replyStore'])->name('reply.store');
+        Route::put('close', [TicketController::class, 'close'])->name('ticket.close');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
