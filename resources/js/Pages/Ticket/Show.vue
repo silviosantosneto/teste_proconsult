@@ -4,7 +4,6 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
-import ReplyForm from "@/Pages/Ticket/Partials/ReplyForm.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 const ticket = usePage().props.ticket
